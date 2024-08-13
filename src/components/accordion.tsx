@@ -17,6 +17,7 @@ const accordionItemVariants = cva(
   }
 );
 
+
 export interface AccordionVariants {
   isExpanded: boolean;
 }
