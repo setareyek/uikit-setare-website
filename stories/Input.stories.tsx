@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { IconArgType, IconKey } from '../.storybook/arg-types';
-import { Input } from '../components/input';
+import { Input } from '../src/components/input';
 import React from 'react';
 
 const meta = {

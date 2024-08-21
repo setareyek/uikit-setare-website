@@ -1,9 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import React, { useContext, useEffect } from 'react';
 import { IconArgType, IconKey } from '../.storybook/arg-types';
-import { Button } from '../components/button/Button';
-import { Toast, ToastContext, type ToastProps, ToastProvider } from '../components/toast';
-
+import { Button } from '../src/components/button/Button';
+import { Toast, ToastContext, type ToastProps, ToastProvider } from '../src/components/toast';
 
 const DecoratorBody = ({ props }: { props: ToastProps }) => {
   const toastContext = useContext(ToastContext);

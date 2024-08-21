@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { IconArgType, IconKey } from '../.storybook/arg-types';
-import { Avatar } from '../components/avatar';
+import { Avatar } from '../src/components/avatar';
 
 const meta = {
   title: 'Components/Avatar',

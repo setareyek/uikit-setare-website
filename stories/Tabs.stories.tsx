@@ -1,6 +1,6 @@
 import React from 'react';
-import { UserIcon } from '../assets/user-icon';
-import { Tabs } from '../components/tabs';
+import { UserIcon } from '../src/assets/user-icon';
+import { Tabs } from '../src/components/tabs';
 import type { Meta, StoryObj } from '@storybook/react';
 
 const meta = {

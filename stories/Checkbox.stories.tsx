@@ -1,13 +1,12 @@
+import { Checkbox } from '../src/components/checkBox/Checkbox';
 import type { Meta, StoryObj } from '@storybook/react';
-import { Radio } from '../components/radio';
-
 const meta = {
-  title: 'Components/Radio',
+  title: 'Components/Checkbox',
   parameters: {
     componentSubtitle:
-      'Radio buttons constitute a vital component within forms, serving their purpose when users need to select precisely one option from a list featuring two or more mutually exclusive possibilities.',
+      'A checkbox, a UI component displayed as a compact square on the screen, features two states: checked and unchecked. Users have the option to select one or multiple items from a list by utilizing checkboxes.',
   },
-  component: Radio,
+  component: Checkbox,
   tags: ['autodocs'],
   args: {
     size: 'medium',
@@ -19,21 +18,18 @@ const meta = {
         disable: true,
       },
     },
-    labelProps: {
-      description: 'HTML attributes for the label element',
-    },
     name: {
       table: {
         disable: true,
       },
     },
-    size: {
-      control: {
-        type: 'inline-radio',
+    defaultChecked: {
+      table: {
+        disable: true,
       },
     },
   },
-} satisfies Meta<typeof Radio>;
+} satisfies Meta<typeof Checkbox>;
 
 export default meta;
 
@@ -41,7 +37,6 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    id: 'default',
     name: 'default',
     label: 'Default',
   },
@@ -49,7 +44,6 @@ export const Default: Story = {
 
 export const Checked: Story = {
   args: {
-    id: 'checked',
     name: 'checked',
     label: 'Checked',
     defaultChecked: true,

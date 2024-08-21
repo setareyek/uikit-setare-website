@@ -1,4 +1,4 @@
-import { Rate } from '../components/rate';
+import { Rate } from '../src/components/rate';
 import type { Meta, StoryObj } from '@storybook/react';
 
 const meta = {

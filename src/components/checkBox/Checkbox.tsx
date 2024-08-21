@@ -1,29 +1,30 @@
 import React from 'react';
-import { clsxMerge } from '../utils';
-import { Label } from './label';
 import { cva } from 'class-variance-authority';
 import {
   type ChangeEvent,
   forwardRef,
   type InputHTMLAttributes,
-  useEffect,
   useId,
   useImperativeHandle,
   useRef,
   useState,
+  type ReactNode,
 } from 'react';
+import { clsxMerge } from '../../utils';
+import { Label } from '../label';
 
 const checkboxVariants = cva(
-  'peer cursor-pointer rounded border-2 border-slate-400 transition-colors duration-300 ease-in-out ' +
-    'checked:bg-blue-700 checked:hover:bg-blue-700 checked:disabled:border-slate-300 checked:disabled:bg-slate-300 checked:disabled:hover:bg-slate-300 ' +
-    'disabled:hover:none disabled:cursor-not-allowed disabled:border-slate-200 disabled:indeterminate:border-slate-300 disabled:indeterminate:bg-slate-300 disabled:hover:bg-transparent ' +
-    'hover:border-blue-700 hover:bg-blue-50 focus:ring-transparent ' +
-    'indeterminate:bg-blue-700 indeterminate:disabled:hover:bg-slate-300',
+  'peer cursor-pointer rounded border-0 outline-0 ring-BlueGray-04 ring-offset-[3px] checked:ring-Purple-05 checked:ring-offset-[3px] focus:ring-offset-[3px] disabled:ring-BlueGray-03 ' +
+    'transition-colors duration-300 ease-in-out checked:ring-Purple-05 hover:ring-Purple-04 checked:disabled:ring-Purple-04 ' +
+    'checked:disabled:ring-red checked:bg-Purple-05 checked:text-Purple-05 checked:hover:bg-Purple-04 checked:disabled:bg-Purple-04 checked:disabled:hover:bg-Purple-04 ' +
+    'disabled:hover:none disabled:ring-red disabled:cursor-not-allowed  disabled:hover:bg-transparent ' +
+    'hover:bg-Purple-04 focus:ring-Purple-05   ',
   {
     variants: {
       size: {
-        medium: 'size-4',
-        small: 'size-[14px]',
+        large: 'size-4 rounded ring-[1.5px] ring-offset-[3px] focus:ring-[1.5px]',
+        medium: 'size-3 rounded ring-[1.5px] ring-offset-[2px] focus:ring-[1.5px]',
+        small: 'size-2.5 rounded-sm ring-1 ring-offset-[2px] focus:ring-1',
       },
     },
   }
@@ -32,36 +33,30 @@ const checkboxVariants = cva(
 const checkboxContainerVariants = cva('inline-flex items-center justify-start gap-2', {
   variants: {
     size: {
-      medium: '',
-      small: '',
+      large: 'gap-3',
+      medium: 'gap-2.5',
+      small: 'gap-2',
     },
   },
 });
 
 export interface CheckboxVariants {
-  size?: 'small' | 'medium';
+  size?: 'small' | 'medium' | 'large';
 }
 
 export interface CheckboxProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'type' | 'size'>, CheckboxVariants {
-  label?: string;
-  indeterminate?: boolean;
+  label?: ReactNode | string;
   disabled?: boolean;
 }
 
 export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
-  ({ size = 'medium', children, className, label, indeterminate, ...rest }: CheckboxProps, ref) => {
+  ({ size = 'medium', children, className, label, ...rest }: CheckboxProps, ref) => {
     const id = useId();
     const innerRef = useRef<HTMLInputElement>(null);
     const [checked, setChecked] = useState(rest.defaultChecked ?? false);
 
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     useImperativeHandle(ref, () => innerRef.current!, [innerRef]);
-
-    useEffect(() => {
-      if (typeof indeterminate === 'boolean' && innerRef?.current) {
-        innerRef.current.indeterminate = indeterminate;
-      }
-    }, [innerRef, indeterminate]);
 
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
       setChecked(event.target.checked);
@@ -74,7 +69,7 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
           id={rest.id ?? id}
           ref={innerRef}
           type='checkbox'
-          aria-checked={indeterminate ? 'mixed' : checked}
+          aria-checked={checked}
           onChange={handleChange}
           className={clsxMerge(checkboxVariants({ size }), className)}
           {...rest}
@@ -94,3 +89,4 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
 );
 
 Checkbox.displayName = 'Checkbox';
+export default Checkbox;

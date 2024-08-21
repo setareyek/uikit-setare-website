@@ -53,7 +53,7 @@ export function Tabs({ name, className, items, ...rest }: TabProps) {
             return (
               <li key={index} role='presentation'>
                 <Button
-                  variant='text-default'
+                  variant='text'
                   className={clsxMerge(tabVariants({ active: isActive, disabled }))}
                   id={`${name ? `${name}-` : ''}tab-${index}`}
                   role='tab'

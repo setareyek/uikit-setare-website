@@ -1,17 +1,17 @@
-import { Checkbox } from '../components/checkbox';
 import type { Meta, StoryObj } from '@storybook/react';
+import { Radio } from '../src/components/radio/Radio';
+
 const meta = {
-  title: 'Components/Checkbox',
+  title: 'Components/Radio',
   parameters: {
     componentSubtitle:
-      'A checkbox, a UI component displayed as a compact square on the screen, features two states: checked and unchecked. Users have the option to select one or multiple items from a list by utilizing checkboxes.',
+      'Radio buttons constitute a vital component within forms, serving their purpose when users need to select precisely one option from a list featuring two or more mutually exclusive possibilities.',
   },
-  component: Checkbox,
+  component: Radio,
   tags: ['autodocs'],
   args: {
     size: 'medium',
     disabled: false,
-    indeterminate: false,
   },
   argTypes: {
     id: {
@@ -19,18 +19,21 @@ const meta = {
         disable: true,
       },
     },
+    labelProps: {
+      description: 'HTML attributes for the label element',
+    },
     name: {
       table: {
         disable: true,
       },
     },
-    defaultChecked: {
-      table: {
-        disable: true,
+    size: {
+      control: {
+        type: 'inline-radio',
       },
     },
   },
-} satisfies Meta<typeof Checkbox>;
+} satisfies Meta<typeof Radio>;
 
 export default meta;
 
@@ -38,6 +41,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
+    id: 'default',
     name: 'default',
     label: 'Default',
   },
@@ -45,16 +49,9 @@ export const Default: Story = {
 
 export const Checked: Story = {
   args: {
+    id: 'checked',
     name: 'checked',
     label: 'Checked',
     defaultChecked: true,
-  },
-};
-
-export const Indeterminate: Story = {
-  args: {
-    name: 'indeterminate',
-    label: 'Indeterminate',
-    indeterminate: true,
   },
 };

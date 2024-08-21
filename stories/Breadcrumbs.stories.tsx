@@ -1,8 +1,8 @@
 import { type Meta, type StoryObj } from '@storybook/react';
-import { GearIcon } from '../assets/gear-icon';
-import { HomeIcon } from '../assets/home-icon';
-import { UsersIcon } from '../assets/users-icon';
-import { Breadcrumbs } from '../components/breadcrumbs';
+import { GearIcon } from '../src/assets/gear-icon';
+import { HomeIcon } from '../src/assets/home-icon';
+import { UsersIcon } from '../src/assets/users-icon';
+import { Breadcrumbs } from '../src/components/breadcrumbs';
 import React from 'react';
 
 const meta = {

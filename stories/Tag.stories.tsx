@@ -1,5 +1,5 @@
 import { IconArgType, IconKey } from '../.storybook/arg-types';
-import { Tag } from '../components/tag';
+import { Tag } from '../src/components/tag';
 import type { Meta, StoryObj } from '@storybook/react';
 
 const meta = {

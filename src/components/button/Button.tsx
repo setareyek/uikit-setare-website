@@ -1,26 +1,26 @@
 import { clsxMerge } from '../../utils';
-import { type ButtonHTMLAttributes, forwardRef, type ReactNode } from 'react';
+import React, { type ButtonHTMLAttributes, forwardRef, type ReactNode } from 'react';
 import { cva } from 'class-variance-authority';
-import React from 'react';
-
 
 const buttonVariants = cva(
-  'group inline-flex items-center justify-center whitespace-nowrap rounded-lg py-2 align-middle text-sm font-semibold leading-none transition-all duration-300 ease-in-out ' +
-    'disabled:cursor-not-allowed',
+  'group inline-flex items-center justify-center whitespace-nowrap rounded-lg align-middle font-semibold ' +
+    'leading-none transition-all duration-300 ease-in-out disabled:cursor-not-allowed',
   {
     variants: {
       variant: {
-        primary: 'bg-blue-700 stroke-white px-6 text-white hover:bg-blue-950',
-        secondary: 'bg-blue-50 stroke-blue-700 px-6 text-blue-700 hover:bg-blue-100',
+        primary: ' stroke-Purple-01 font-bold',
         outlined:
-          'border border-slate-200 bg-transparent stroke-black px-6 text-black hover:border-blue-700 hover:bg-blue-700 hover:stroke-white hover:text-white',
-        text: 'stroke-blue-700 px-2 text-blue-700',
-        'text-default': 'stroke-slate-500 px-2 text-black',
+          'border-[1.5px] border-Purple-05 bg-Purple-01 stroke-Purple-05  hover:border-blue-700' +
+          'hover:stroke-Purple-05 active:stroke-Purple-07 ',
+        text: 'stroke-Purple-05 px-2 hover:stroke-BlueGray-07 ' + ' active:stroke-BlueGray-07  ',
       },
       size: {
-        large: 'h-[42px] min-w-[42px] gap-2',
-        medium: 'h-[38px] min-w-[38px] gap-2',
-        small: 'h-8 min-w-[32px] gap-1.5 text-xs',
+        xxLarge: 'h-[56px] min-w-[195px] gap-2 px-4 py-[9px] text-[22px] leading-[38px] [&>svg]:size-6',
+        xLarge: 'h-[48px] min-w-[192px] gap-2 px-4 py-[9px] text-[18px] leading-8 [&>svg]:size-6',
+        large: 'h-[40px] min-w-[158px] gap-2 px-4 py-[6px] text-[16px] leading-7 [&>svg]:size-5',
+        medium: 'h-[36px] min-w-[152px] gap-1.5 px-4 py-[6px] text-[14px] leading-6 [&>svg]:size-5',
+        small: 'h-[32px] min-w-[132px] gap-1.5 px-4 py-1 text-[12px] leading-5 [&>svg]:size-4',
+        xSmall: 'h-[28px] min-w-[121px] gap-1 px-4 py-[6px] text-[10px] leading-4 [&>svg]:size-4',
       },
       disabled: {
         true: '',
@@ -34,11 +34,11 @@ const buttonVariants = cva(
         true: 'p-0',
         false: '',
       },
-      startIcon: {
+      endIcon: {
         true: '',
         false: '',
       },
-      endIcon: {
+      startIcon: {
         true: '',
         false: '',
       },
@@ -49,45 +49,30 @@ const buttonVariants = cva(
     },
     compoundVariants: [
       {
-        variant: ['primary', 'secondary'],
-        class: 'disabled:bg-slate-100 disabled:stroke-slate-400 disabled:text-slate-400 disabled:hover:bg-slate-100',
+        variant: ['primary'],
+        class: 'disabled:bg-Purple-04 disabled:hover:bg-Purple-04',
       },
       {
         variant: ['outlined'],
-        class:
-          'disabled:border-slate-100 disabled:bg-white disabled:stroke-slate-400 disabled:text-slate-400 disabled:hover:bg-white',
-      },
-      {
-        variant: ['primary', 'secondary', 'outlined'],
-        iconOnly: false,
-        startIcon: true,
-        class: 'px-4',
-      },
-      {
-        variant: ['primary', 'secondary', 'outlined'],
-        iconOnly: false,
-        endIcon: true,
-        class: 'px-4',
-      },
-      {
-        variant: ['primary', 'secondary', 'outlined'],
-        iconOnly: false,
-        size: ['small'],
-        class: 'px-2',
-      },
-      {
-        variant: ['text', 'text-default'],
-        class: 'disabled:stroke-slate-400 disabled:text-slate-400',
+        class: 'disabled:border-Purple-04 disabled:bg-transparent disabled:stroke-Purple-04 disabled:text-Purple-04',
       },
       {
         variant: ['text'],
-        disabled: false,
-        class: 'hover:stroke-blue-950 hover:text-blue-950',
+        class: 'disabled:bg-transparent disabled:stroke-Purple-04 disabled:text-Purple-04',
       },
       {
-        variant: ['text-default'],
-        disabled: false,
-        class: 'hover:opacity-80',
+        variant: ['primary', 'outlined', 'text'],
+        iconOnly: true,
+        endIcon: true,
+        startIcon: false,
+        class: 'min-w-0 px-3',
+      },
+      {
+        variant: ['primary', 'outlined', 'text'],
+        iconOnly: true,
+        endIcon: false,
+        startIcon: true,
+        class: 'min-w-0 px-3',
       },
     ],
   }
@@ -95,22 +80,30 @@ const buttonVariants = cva(
 
 export interface ButtonVariants {
   disabled?: boolean;
-  endIcon?: boolean;
+  startIcon?: boolean;
   fullWidth?: boolean;
   href?: boolean;
   iconOnly?: boolean;
-  size?: 'small' | 'medium' | 'large';
-  startIcon?: boolean;
-  variant?: 'primary' | 'secondary' | 'outlined' | 'text' | 'text-default';
+  size?: 'xSmall' | 'small' | 'medium' | 'large' | 'xLarge' | 'xxLarge';
+  endIcon?: boolean;
+  variant?: 'primary' | 'outlined' | 'text';
 }
 
 export interface ButtonProps
   extends ButtonHTMLAttributes<HTMLButtonElement | HTMLAnchorElement>,
-    Omit<ButtonVariants, 'disabled' | 'href' | 'startIcon' | 'endIcon'>,
+    Omit<ButtonVariants, 'disabled' | 'href' | 'endIcon' | 'startIcon'>,
     Partial<Pick<HTMLAnchorElement, 'target'>> {
   href?: string;
-  startIcon?: ReactNode;
   endIcon?: ReactNode;
+  startIcon?: ReactNode;
+  bgColor?: string;
+  bgColorHover?: string;
+  bgColorActive?: string;
+  textColor?: string;
+  textColorHover?: string;
+  textColorActive?: string;
+  borderColor?: string;
+  radius?: string;
 }
 
 export const Button = forwardRef<HTMLButtonElement | HTMLAnchorElement, ButtonProps>(
@@ -122,9 +115,17 @@ export const Button = forwardRef<HTMLButtonElement | HTMLAnchorElement, ButtonPr
       fullWidth = false,
       href,
       className,
-      children,
-      startIcon,
+      children = 'text',
       endIcon,
+      startIcon,
+      bgColor = `${variant === 'primary' ? '#6F59CA' : variant === 'outlined' ? '#FCFBFE' : 'transparent'}`,
+      bgColorHover = `${variant === 'primary' ? '#3B1E85' : variant === 'outlined' ? '#F5F3FC' : '#F0F2F5'}`,
+      bgColorActive = `${variant === 'primary' ? '#251354' : variant === 'outlined' ? '#EFEAFA' : '#C2CCD6'}`,
+      textColor = `${variant === 'primary' ? '#FCFBFE' : variant === 'outlined' ? '#6F59CA' : '#6F59CA'}`,
+      textColorHover = `${variant === 'primary' ? '#FCFBFE' : variant === 'outlined' ? '#6F59CA' : '#251354'}`,
+      textColorActive = `${variant === 'primary' ? '#FCFBFE' : variant === 'outlined' ? '#251354' : '#251354'}`,
+      borderColor = '#6F59CA',
+      radius = '8px',
       ...rest
     }: ButtonProps,
     ref
@@ -136,6 +137,28 @@ export const Button = forwardRef<HTMLButtonElement | HTMLAnchorElement, ButtonPr
         ref={ref as never}
         type='button'
         href={href}
+        onMouseEnter={e => {
+          e.currentTarget.style.backgroundColor = bgColorHover;
+          e.currentTarget.style.color = textColorHover;
+        }}
+        onMouseLeave={e => {
+          e.currentTarget.style.backgroundColor = bgColor;
+          e.currentTarget.style.color = textColor;
+        }}
+        onMouseDown={e => {
+          e.currentTarget.style.backgroundColor = bgColorActive;
+          e.currentTarget.style.color = textColorActive;
+        }}
+        onMouseUp={e => {
+          e.currentTarget.style.backgroundColor = bgColorHover;
+          e.currentTarget.style.color = textColorHover;
+        }}
+        style={{
+          backgroundColor: bgColor,
+          color: textColor,
+          borderColor: `${variant === 'outlined' ? '' : borderColor}`,
+          borderRadius: `${radius}`,
+        }}
         aria-disabled={rest?.disabled}
         className={clsxMerge(
           buttonVariants({
@@ -143,8 +166,8 @@ export const Button = forwardRef<HTMLButtonElement | HTMLAnchorElement, ButtonPr
             variant,
             size,
             iconOnly,
-            startIcon: Boolean(startIcon),
             endIcon: Boolean(endIcon),
+            startIcon: Boolean(startIcon),
             disabled: Boolean(rest?.disabled),
             fullWidth,
           }),
@@ -152,12 +175,12 @@ export const Button = forwardRef<HTMLButtonElement | HTMLAnchorElement, ButtonPr
         )}
         {...rest}
       >
-        {startIcon}
-        {children && <span>{children}</span>}
         {endIcon}
+        {children && <span>{children}</span>}
+        {startIcon}
       </Component>
     );
   }
 );
 Button.displayName = 'Button';
-export default Button
+export default Button;

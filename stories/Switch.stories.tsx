@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { IconArgType, IconKey } from '../.storybook/arg-types';
-import { Switch } from '../components/switch';
+import { Switch } from '../src/components/switch/Switch';
 
 const meta = {
   title: 'Components/Switch',

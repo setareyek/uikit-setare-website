@@ -1,5 +1,5 @@
 import { IconArgType } from '../.storybook/arg-types';
-import { Button } from '../components/button/Button';
+import { Button } from '../src/components/button/Button';
 import type { Meta, StoryObj } from '@storybook/react';
 
 const meta = {
@@ -40,13 +40,7 @@ type Story = StoryObj<typeof meta>;
 export const Primary: Story = {
   args: {
     children: 'Primary',
-  },
-};
-
-export const Secondary: Story = {
-  args: {
-    children: 'Secondary',
-    variant: 'secondary',
+    variant: 'primary',
   },
 };
 
@@ -61,12 +55,5 @@ export const Text: Story = {
   args: {
     children: 'Text',
     variant: 'text',
-  },
-};
-
-export const TextDefault: Story = {
-  args: {
-    children: 'Text Default',
-    variant: 'text-default',
   },
 };

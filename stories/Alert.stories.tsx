@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { IconArgType, IconKey } from '../.storybook/arg-types';
-import { Alert } from '../components/alert';
-import {  Button   } from '../components/button/Button';
+import { Alert } from '../src/components/alert';
+import { Button } from '../src/components/button/Button';
 import React from 'react';
 
 const meta = {

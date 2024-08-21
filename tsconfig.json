@@ -4,7 +4,8 @@
     "module": "es6",
     "moduleResolution": "node",
     "outDir": "./dist",
-    "rootDir": "./src",
+//    "rootDir": "./src",
+    "sourceRoot": "/",
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
@@ -13,6 +14,12 @@
     "declaration": true,
     "declarationMap": true
   },
-  "include": ["src/**/*"],
-  "exclude": []
+  "include": [
+    "src/**/*",
+    "stories/**/*",
+    "tailwind.config.ts",
+    "webpack.config.js",
+    ""
+  ],
+  "exclude": [".husky/**/*",".storybook/*","dist/**/*","node_modules/**/*"]
 }

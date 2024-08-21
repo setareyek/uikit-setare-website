@@ -1,13 +1,13 @@
 import React from 'react';
 import { ArgTypes } from '@storybook/react';
 import { SVGProps } from 'react';
-import { CheckIcon } from '../assets/check-icon';
-import { CheckboxIcon } from '../assets/checkbox-icon';
-import { CircleCloseIcon } from '../assets/circle-close-icon';
-import { CircleExclamationMarkIcon } from '../assets/circle-exclamation-mark-icon';
-import { CloseIcon } from '../assets/close-icon';
-import { StarIcon } from '../assets/star-icon';
-import { UserIcon } from '../assets/user-icon';
+import { CheckIcon } from '../src/assets/check-icon';
+import { CheckboxIcon } from '../src/assets/checkbox-icon';
+import { CircleCloseIcon } from '../src/assets/circle-close-icon';
+import { CircleExclamationMarkIcon } from '../src/assets/circle-exclamation-mark-icon';
+import { CloseIcon } from '../src/assets/close-icon';
+import { StarIcon } from '../src/assets/star-icon';
+import { UserIcon } from '../src/assets/user-icon';
 
 export enum IconKey {
   CheckIcon = 'CheckIcon',

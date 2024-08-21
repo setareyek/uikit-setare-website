@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { UserIcon } from '../assets/user-icon';
-import { Accordion } from '../components/accordion';
+import { UserIcon } from '../src/assets/user-icon';
+import { Accordion } from '../src/components/accordion';
 import React from 'react';
 
 const meta = {

@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { DribbleIcon } from '../assets/dribble-icon';
-import { GitHubOctocatIcon } from '../assets/github-octocat-icon';
-import { YoutubeIcon } from '../assets/youtube-icon';
-import { SegmentedControl } from '../components/segmented-control';
+import { DribbleIcon } from '../src/assets/dribble-icon';
+import { GitHubOctocatIcon } from '../src/assets/github-octocat-icon';
+import { YoutubeIcon } from '../src/assets/youtube-icon';
+import { SegmentedControl } from '../src/components/segmented-control';
 import React from 'react';
 
 const meta = {

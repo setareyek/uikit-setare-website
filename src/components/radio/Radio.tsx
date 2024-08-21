@@ -1,20 +1,20 @@
-import React from 'react';
-import { clsxMerge } from '../utils';
-import { Label, type LabelProps } from './label';
+import React, { type ChangeEvent, type InputHTMLAttributes, type ReactNode, useId, useState } from 'react';
+import { clsxMerge } from '../../utils';
+import { Label, type LabelProps } from '../label';
 import { cva } from 'class-variance-authority';
-import { type ChangeEvent, type InputHTMLAttributes, useId, useState } from 'react';
 
 const radioVariants = cva(
-  'peer cursor-pointer border-0 ring-2 ring-slate-300 ring-offset-2 transition-colors duration-300 ease-in-out ' +
-    'checked:bg-none checked:ring-blue-700 checked:disabled:bg-slate-400 ' +
-    'disabled:cursor-not-allowed disabled:bg-slate-50 disabled:text-slate-50 disabled:ring-slate-200 disabled:ring-offset-slate-50 ' +
-    'focus:ring-[3px] focus:ring-offset-2 ' +
-    'hover:ring-blue-700',
+  'peer cursor-pointer border-0  ring-BlueGray-04 ring-offset-[3px] transition-colors duration-300 ease-in-out ' +
+    'checked:bg-none checked:ring-Purple-05 checked:disabled:bg-Purple-04 ' +
+    'disabled:cursor-not-allowed disabled:bg-none disabled:text-BlueGray-03 disabled:ring-BlueGray-03 disabled:ring-offset-slate-50 checked:disabled:ring-Purple-04 ' +
+    'checked:text-Purple-05 focus:ring-2 focus:ring-offset-[3px] ' +
+    'hover:text-Purple-04 hover:ring-Purple-04 checked:hover:ring-Purple-05 checked:hover:disabled:ring-Purple-04',
   {
     variants: {
       size: {
-        medium: 'size-[10px]',
-        small: 'size-2',
+        large: 'size-4 ring-2',
+        medium: 'size-3 ring-[1.5px]',
+        small: 'size-2.5 ring-1',
       },
     },
   }
@@ -23,6 +23,7 @@ const radioVariants = cva(
 const radioContainerVariants = cva('inline-flex items-center justify-start', {
   variants: {
     size: {
+      large: 'gap-3',
       medium: 'gap-3',
       small: 'gap-2',
     },
@@ -30,7 +31,7 @@ const radioContainerVariants = cva('inline-flex items-center justify-start', {
 });
 
 export interface RadioVariants {
-  size?: 'medium' | 'small';
+  size?: 'large' | 'medium' | 'small';
 }
 
 export interface RadioProps
@@ -38,7 +39,7 @@ export interface RadioProps
     Required<Pick<InputHTMLAttributes<HTMLInputElement>, 'name'>>,
     RadioVariants {
   disabled?: boolean;
-  label: string;
+  label: ReactNode | string;
   labelProps?: Omit<LabelProps, 'htmlFor'>;
 }
 
@@ -80,3 +81,4 @@ export function Radio({ size = 'medium', children, className, label, labelProps 
 }
 
 Radio.displayName = 'Radio';
+export default Radio;

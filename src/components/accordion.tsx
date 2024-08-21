@@ -17,7 +17,6 @@ const accordionItemVariants = cva(
   }
 );
 
-
 export interface AccordionVariants {
   isExpanded: boolean;
 }
@@ -50,7 +49,7 @@ function AccordionItem({
     <div className={clsxMerge(accordionItemVariants({ isExpanded }), className)} {...rest}>
       <Button
         id={buttonId}
-        variant='text-default'
+        variant='text'
         className={clsxMerge('flex h-auto w-full items-center justify-between p-0', { 'pb-1': isExpanded })}
         endIcon={
           <ChevronDownIcon

@@ -37,7 +37,7 @@ export function Breadcrumbs({ items, separator = 'chevron', maxItems = 6 }: Brea
             <li className='flex items-center'>
               <Button
                 size='small'
-                variant='text-default'
+                variant='text'
                 className='h-auto min-w-0 stroke-inherit p-0 text-slate-400 hover:text-blue-700'
                 onClick={isCollapsed => {
                   setIsCollapsed(!isCollapsed);

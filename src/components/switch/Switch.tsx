@@ -1,39 +1,31 @@
-import React from 'react';
-import { clsxMerge } from '../utils';
-import { Label } from './label';
+import React, { type InputHTMLAttributes, type ReactNode } from 'react';
+import { clsxMerge } from '../../utils';
+import { Label } from '../label';
 import { cva } from 'class-variance-authority';
-import { type InputHTMLAttributes, type ReactNode } from 'react';
-
-const switchDotVariants = cva(
-  'absolute top-0.5 z-10 cursor-pointer rounded-full border border-slate-50 bg-blue-700 transition duration-300 ' +
-    'peer-checked:translate-x-5 peer-checked:border-blue-700 peer-checked:bg-white ' +
-    'peer-disabled:cursor-not-allowed peer-disabled:border-slate-100 peer-disabled:bg-slate-400',
-  {
-    variants: {
-      size: {
-        medium: 'left-[3px] size-5 peer-checked:left-[5px]',
-        small: 'left-[2px] size-4',
-      },
-    },
-  }
-);
 
 const switchContainerVariants = cva(
-  'block cursor-pointer rounded-full border border-slate-300 bg-slate-50 transition duration-300 ' +
-    'peer-checked:border-blue-700 peer-checked:bg-blue-700 ' +
-    'peer-disabled:cursor-not-allowed peer-disabled:border-slate-100 peer-disabled:bg-slate-100',
+  `eer-disabled:cursor-not-allowed relative block cursor-pointer rounded-full border border-Purple-05  bg-Purple-03 indent-96 
+        after:absolute after:z-10 after:rounded-full after:border after:border-Purple-05 after:bg-white after:transition-all
+        after:duration-300 after:content-[''] peer-checked:bg-Purple-05 peer-checked:after:translate-x-[-100%] peer-checked:after:border-Purple-04
+        peer-disabled:cursor-not-allowed peer-disabled:border-Purple-04 peer-disabled:opacity-50 peer-disabled:after:border-Purple-05
+         peer-disabled:after:opacity-50 peer-checked:peer-disabled:opacity-50 peer-checked:peer-disabled:after:border-Purple-04   `,
   {
     variants: {
       size: {
-        medium: 'h-6 w-12',
-        small: 'h-5 w-10',
+        large:
+          'h-[28px] w-[48px] after:left-[4px] after:top-[3px] after:size-5 peer-checked:after:left-[calc(100%-4px)] hover:after:w-6 active:after:w-6',
+        medium:
+          'h-[24px] w-[44px] after:left-[3px] after:top-[2px] after:size-[18px] peer-checked:after:left-[calc(100%-3px)] hover:after:w-[22px] active:after:w-[22px]',
+        small:
+          'h-[20px] w-[40px] after:left-[2px] after:top-[1px] after:size-4 peer-checked:after:left-[calc(100%-2px)] hover:after:w-5 active:after:w-5',
       },
     },
   }
 );
 
 const switchIconVariants = cva(
-  'pointer-events-none absolute top-1/2 flex size-[18px] -translate-y-1/2 items-center justify-center overflow-hidden transition duration-300 peer-disabled:stroke-slate-400',
+  'pointer-events-none absolute top-1/2 flex size-[18px] -translate-y-1/2 items-center justify-center overflow-hidden' +
+    ' transition duration-300 peer-disabled:stroke-slate-400 ',
   {
     variants: {
       checked: {
@@ -41,6 +33,7 @@ const switchIconVariants = cva(
         false: 'right-1 stroke-blue-700 peer-checked:invisible',
       },
       size: {
+        large: '',
         medium: '',
         small: '',
       },
@@ -66,9 +59,10 @@ const switchTextVariants = cva(
     variants: {
       checked: {
         true: 'invisible left-3 -translate-x-1/2 text-white peer-checked:visible',
-        false: 'right-2.5 text-blue-700 peer-checked:invisible',
+        false: 'right-1.5 text-blue-700 peer-checked:invisible',
       },
       size: {
+        large: '',
         medium: '',
         small: '',
       },
@@ -89,7 +83,7 @@ const switchTextVariants = cva(
 );
 
 export interface SwitchVariants {
-  size?: 'medium' | 'small';
+  size?: 'large' | 'medium' | 'small';
 }
 
 export interface SwitchProps
@@ -97,7 +91,7 @@ export interface SwitchProps
     Required<Pick<InputHTMLAttributes<HTMLInputElement>, 'id' | 'name'>>,
     SwitchVariants {
   disabled?: boolean;
-  label?: string;
+  label?: ReactNode | string;
   checkedIcon?: ReactNode;
   uncheckedIcon?: ReactNode;
   checkedText?: string;
@@ -117,12 +111,11 @@ export function Switch({
   ...rest
 }: SwitchProps) {
   return (
-    <div className='inline-flex items-center justify-center'>
-      <Label htmlFor={id} size='small' className='flex items-center'>
+    <div className='inline-flex  items-center justify-start'>
+      <Label htmlFor={id} size='small' className='flex items-center gap-2'>
         <div className='relative'>
           <input type='checkbox' id={id} className='peer sr-only' {...rest} />
           <div className={clsxMerge(switchContainerVariants({ size }))} />
-          <div className={clsxMerge(switchDotVariants({ size }))}></div>
           {checkedIcon && !checkedText && (
             <div className={clsxMerge(switchIconVariants({ checked: true, size }))}>{checkedIcon}</div>
           )}
@@ -149,3 +142,4 @@ export function Switch({
 }
 
 Switch.displayName = 'Switch';
+export default Switch;
