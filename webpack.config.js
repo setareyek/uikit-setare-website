@@ -24,11 +24,7 @@ const commonConfig = {
       },
       {
         test: /\.css$/i,
-        use: [
-          MiniCssExtractPlugin.loader,
-          'css-loader',
-          'postcss-loader',
-        ],
+        use: [MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader'],
       },
       {
         test: /\.(png|jpg|gif|svg)$/,
@@ -45,9 +41,7 @@ const commonConfig = {
       filename: 'styles.css',
     }),
     new CopyWebpackPlugin({
-      patterns: [
-        { from: 'src/assets', to: 'assets' },
-      ],
+      patterns: [{ from: 'src/assets', to: 'assets' }],
     }),
   ],
   devtool: 'source-map',

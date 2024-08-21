@@ -6,13 +6,7 @@ interface IThemeProviderProps {
 }
 
 export default function ThemeProvider(props: IThemeProviderProps) {
-
   const { children, themeMode } = props;
 
-  return (
-    <div className={themeMode}>
-      {children}
-    </div>
-  );
-
+  return <div className={themeMode}>{children}</div>;
 }

@@ -35,5 +35,5 @@
       "typescript": {}
     }
   },
-  "ignorePatterns": ["postcss.config.js", "storybook-static"]
+  "ignorePatterns": ["postcss.config.js", "storybook-static", "dist/"]
 }

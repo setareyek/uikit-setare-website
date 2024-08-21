@@ -4,7 +4,6 @@ import { clsxMerge } from '../utils';
 import { Button, type ButtonProps } from './button/Button';
 import { Tooltip, type TooltipProps } from './tooltip';
 
-
 const segmentedControlVariants = cva('h-7 text-slate-950', {
   variants: {
     active: {
