@@ -1,4 +1,4 @@
-import { clsxMerge } from '../utils';
+import { clsxMerge } from '../../utils';
 import { type LabelHTMLAttributes } from 'react';
 import { cva } from 'class-variance-authority';
 import React from 'react';

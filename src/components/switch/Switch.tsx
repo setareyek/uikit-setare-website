@@ -1,6 +1,6 @@
 import React, { type ChangeEvent, type InputHTMLAttributes, type ReactNode, useState } from 'react';
 import { clsxMerge } from '../../utils';
-import { Label } from '../label';
+import { Label } from '../label/Label';
 import { cva } from 'class-variance-authority';
 
 const switchContainerVariants = cva(
@@ -96,10 +96,10 @@ export interface SwitchProps
   uncheckedIcon?: ReactNode;
   checkedText?: string;
   uncheckedText?: string;
-  bgContainerOff: string;
-  bgContainerOn: string;
-  borderContainerOff: string;
-  borderContainerOn: string;
+  bgContainerOff?: string;
+  bgContainerOn?: string;
+  borderContainerOff?: string;
+  borderContainerOn?: string;
 }
 
 export function Switch({

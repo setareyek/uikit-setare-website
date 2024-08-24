@@ -1,6 +1,6 @@
 import React, { type ChangeEvent, type InputHTMLAttributes, type ReactNode, useId, useState } from 'react';
 import { clsxMerge } from '../../utils';
-import { Label, type LabelProps } from '../label';
+import { Label, type LabelProps } from '../label/Label';
 import { cva } from 'class-variance-authority';
 
 const radioVariants = cva(

@@ -10,7 +10,7 @@ import React, {
 } from 'react';
 import { cva } from 'class-variance-authority';
 import { clsxMerge } from '../../utils';
-import { Label } from '../label';
+import { Label } from '../label/Label';
 
 const checkboxVariants = cva(
   'peer cursor-pointer  ' +
