@@ -1,30 +1,28 @@
-import React from 'react';
-import { cva } from 'class-variance-authority';
-import {
+import React, {
   type ChangeEvent,
   forwardRef,
   type InputHTMLAttributes,
+  type ReactNode,
   useId,
   useImperativeHandle,
   useRef,
   useState,
-  type ReactNode,
 } from 'react';
+import { cva } from 'class-variance-authority';
 import { clsxMerge } from '../../utils';
 import { Label } from '../label';
 
 const checkboxVariants = cva(
-  'peer cursor-pointer rounded border-0 outline-0 ring-BlueGray-04 ring-offset-[3px] checked:ring-Purple-05 checked:ring-offset-[3px] focus:ring-offset-[3px] disabled:ring-BlueGray-03 ' +
-    'transition-colors duration-300 ease-in-out checked:ring-Purple-05 hover:ring-Purple-04 checked:disabled:ring-Purple-04 ' +
-    'checked:disabled:ring-red checked:bg-Purple-05 checked:text-Purple-05 checked:hover:bg-Purple-04 checked:disabled:bg-Purple-04 checked:disabled:hover:bg-Purple-04 ' +
-    'disabled:hover:none disabled:ring-red disabled:cursor-not-allowed  disabled:hover:bg-transparent ' +
-    'hover:bg-Purple-04 focus:ring-Purple-05   ',
+  'peer cursor-pointer  ' +
+    'transition-colors duration-300 ease-in-out disabled:cursor-not-allowed disabled:opacity-50 ',
   {
     variants: {
       size: {
-        large: 'size-4 rounded ring-[1.5px] ring-offset-[3px] focus:ring-[1.5px]',
-        medium: 'size-3 rounded ring-[1.5px] ring-offset-[2px] focus:ring-[1.5px]',
-        small: 'size-2.5 rounded-sm ring-1 ring-offset-[2px] focus:ring-1',
+        large:
+          'size-4 rounded outline-[1.5px] outline-offset-[2.5px] focus:outline-[1.5px] focus:outline-offset-[2.5px] ',
+        medium:
+          'size-3 rounded outline-[1.5px] outline-offset-[2.5px] focus:outline-[1.5px] focus:outline-offset-[2.5px] ',
+        small: 'size-2.5 rounded-sm outline-1 outline-offset-2 focus:outline-1 focus:outline-offset-2 ',
       },
     },
   }
@@ -47,10 +45,31 @@ export interface CheckboxVariants {
 export interface CheckboxProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'type' | 'size'>, CheckboxVariants {
   label?: ReactNode | string;
   disabled?: boolean;
+  bgColorHover?: string;
+  bgColorSelected?: string;
+  borderColor?: string;
+  borderColorHover?: string;
+  borderColorSelected?: string;
+  radius?: string;
 }
 
 export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
-  ({ size = 'medium', children, className, label, ...rest }: CheckboxProps, ref) => {
+  (
+    {
+      size = 'medium',
+      children,
+      className,
+      label,
+      bgColorHover = '#BEACEC',
+      bgColorSelected = '#6F59CA',
+      borderColor = '#CCCCCC',
+      borderColorHover = '#BEACEC',
+      borderColorSelected = '#6F59CA',
+      radius,
+      ...rest
+    }: CheckboxProps,
+    ref
+  ) => {
     const id = useId();
     const innerRef = useRef<HTMLInputElement>(null);
     const [checked, setChecked] = useState(rest.defaultChecked ?? false);
@@ -71,8 +90,23 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
           type='checkbox'
           aria-checked={checked}
           onChange={handleChange}
+          style={{
+            outlineStyle: 'solid',
+            outlineColor: checked ? borderColorSelected : borderColor,
+            boxShadow: 'none',
+            border: 'none',
+            borderRadius: radius,
+          }}
           className={clsxMerge(checkboxVariants({ size }), className)}
           {...rest}
+          onMouseEnter={e => {
+            e.currentTarget.style.outlineColor = checked ? borderColorSelected : borderColorHover;
+            e.currentTarget.style.backgroundColor = bgColorHover;
+          }}
+          onMouseLeave={e => {
+            e.currentTarget.style.outlineColor = checked ? borderColorSelected : borderColor;
+            e.currentTarget.style.backgroundColor = checked ? bgColorSelected : '';
+          }}
         />
         {label && (
           <Label

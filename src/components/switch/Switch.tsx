@@ -1,14 +1,14 @@
-import React, { type InputHTMLAttributes, type ReactNode } from 'react';
+import React, { type ChangeEvent, type InputHTMLAttributes, type ReactNode, useState } from 'react';
 import { clsxMerge } from '../../utils';
 import { Label } from '../label';
 import { cva } from 'class-variance-authority';
 
 const switchContainerVariants = cva(
-  `eer-disabled:cursor-not-allowed relative block cursor-pointer rounded-full border border-Purple-05  bg-Purple-03 indent-96 
-        after:absolute after:z-10 after:rounded-full after:border after:border-Purple-05 after:bg-white after:transition-all
-        after:duration-300 after:content-[''] peer-checked:bg-Purple-05 peer-checked:after:translate-x-[-100%] peer-checked:after:border-Purple-04
-        peer-disabled:cursor-not-allowed peer-disabled:border-Purple-04 peer-disabled:opacity-50 peer-disabled:after:border-Purple-05
-         peer-disabled:after:opacity-50 peer-checked:peer-disabled:opacity-50 peer-checked:peer-disabled:after:border-Purple-04   `,
+  `eer-disabled:cursor-not-allowed relative block cursor-pointer rounded-full border indent-96 transition-all duration-300
+        after:absolute after:z-10 after:rounded-full after:border after:bg-white
+        after:transition-all after:duration-300 after:content-[''] 
+        peer-checked:after:translate-x-[-100%] peer-disabled:cursor-not-allowed peer-disabled:opacity-50 
+         peer-disabled:after:opacity-50 peer-checked:peer-disabled:opacity-50    `,
   {
     variants: {
       size: {
@@ -96,6 +96,10 @@ export interface SwitchProps
   uncheckedIcon?: ReactNode;
   checkedText?: string;
   uncheckedText?: string;
+  bgContainerOff: string;
+  bgContainerOn: string;
+  borderContainerOff: string;
+  borderContainerOn: string;
 }
 
 export function Switch({
@@ -108,23 +112,57 @@ export function Switch({
   uncheckedIcon,
   checkedText,
   uncheckedText,
+  bgContainerOff = '#EFEAFA',
+  bgContainerOn = '#6F59CA',
+  borderContainerOff = '#6F59CA',
+  borderContainerOn = '#6F59CA',
   ...rest
 }: SwitchProps) {
+  const [checked, setChecked] = useState(rest.defaultChecked ?? false);
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setChecked(event.target.checked);
+    rest.onChange?.(event);
+  };
+
   return (
     <div className='inline-flex  items-center justify-start'>
       <Label htmlFor={id} size='small' className='flex items-center gap-2'>
         <div className='relative'>
-          <input type='checkbox' id={id} className='peer sr-only' {...rest} />
-          <div className={clsxMerge(switchContainerVariants({ size }))} />
+          <input
+            type='checkbox'
+            id={id}
+            className='peer sr-only'
+            {...rest}
+            aria-checked={checked}
+            onChange={handleChange}
+          />
+          <style>
+            {`
+            .switch-container::after {
+            border-color:${borderContainerOff};
+          }
+          `}
+          </style>
+          <div
+            style={{
+              backgroundColor: checked ? bgContainerOn : bgContainerOff,
+              borderColor: checked ? borderContainerOn : borderContainerOff,
+            }}
+            className={clsxMerge(switchContainerVariants({ size }), 'switch-container')}
+          />
+
           {checkedIcon && !checkedText && (
             <div className={clsxMerge(switchIconVariants({ checked: true, size }))}>{checkedIcon}</div>
           )}
+
           {checkedText && !checkedIcon && (
             <div className={clsxMerge(switchTextVariants({ checked: true, size }))}>{checkedText}</div>
           )}
+
           {uncheckedIcon && !uncheckedText && (
             <div className={clsxMerge(switchIconVariants({ checked: false, size }))}>{uncheckedIcon}</div>
           )}
+
           {uncheckedText && !uncheckedIcon && (
             <div className={clsxMerge(switchTextVariants({ checked: false, size }))}>{uncheckedText}</div>
           )}

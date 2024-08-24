@@ -4,17 +4,13 @@ import { Label, type LabelProps } from '../label';
 import { cva } from 'class-variance-authority';
 
 const radioVariants = cva(
-  'peer cursor-pointer border-0  ring-BlueGray-04 ring-offset-[3px] transition-colors duration-300 ease-in-out ' +
-    'checked:bg-none checked:ring-Purple-05 checked:disabled:bg-Purple-04 ' +
-    'disabled:cursor-not-allowed disabled:bg-none disabled:text-BlueGray-03 disabled:ring-BlueGray-03 disabled:ring-offset-slate-50 checked:disabled:ring-Purple-04 ' +
-    'checked:text-Purple-05 focus:ring-2 focus:ring-offset-[3px] ' +
-    'hover:text-Purple-04 hover:ring-Purple-04 checked:hover:ring-Purple-05 checked:hover:disabled:ring-Purple-04',
+  'peer cursor-pointer rounded-full transition-colors duration-300 ease-in-out disabled:cursor-not-allowed disabled:opacity-50 ',
   {
     variants: {
       size: {
-        large: 'size-4 ring-2',
-        medium: 'size-3 ring-[1.5px]',
-        small: 'size-2.5 ring-1',
+        large: 'size-4 outline-[1.5px] outline-offset-[2.5px] focus:outline-[1.5px] focus:outline-offset-[2.5px]',
+        medium: 'size-3  outline-[1.5px] outline-offset-[2.5px] focus:outline-[1.5px] focus:outline-offset-[2.5px]',
+        small: 'size-2.5 outline-1 outline-offset-2 focus:outline-1 focus:outline-offset-2',
       },
     },
   }
@@ -41,9 +37,26 @@ export interface RadioProps
   disabled?: boolean;
   label: ReactNode | string;
   labelProps?: Omit<LabelProps, 'htmlFor'>;
+  bgColorHover?: string;
+  bgColorSelected?: string;
+  borderColor?: string;
+  borderColorHover?: string;
+  borderColorSelected?: string;
 }
 
-export function Radio({ size = 'medium', children, className, label, labelProps = {}, ...rest }: RadioProps) {
+export function Radio({
+  size = 'medium',
+  children,
+  className,
+  label,
+  labelProps = {},
+  bgColorHover = '#BEACEC',
+  bgColorSelected = '#6F59CA',
+  borderColor = '#CCCCCC',
+  borderColorHover = '#BEACEC',
+  borderColorSelected = '#6F59CA',
+  ...rest
+}: RadioProps) {
   const id = useId();
   const [checked, setChecked] = useState(rest.defaultChecked ?? false);
 
@@ -62,8 +75,23 @@ export function Radio({ size = 'medium', children, className, label, labelProps 
         tabIndex={checked ? 0 : -1}
         aria-checked={checked}
         onChange={handleChange}
+        style={{
+          outlineStyle: 'solid',
+          outlineColor: checked ? borderColorSelected : borderColor,
+          boxShadow: 'none',
+          border: 'none',
+          backgroundImage: 'none',
+        }}
         className={clsxMerge(radioVariants({ size }), className)}
         {...rest}
+        onMouseEnter={e => {
+          e.currentTarget.style.outlineColor = checked ? borderColorSelected : borderColorHover;
+          e.currentTarget.style.backgroundColor = bgColorHover;
+        }}
+        onMouseLeave={e => {
+          e.currentTarget.style.outlineColor = checked ? borderColorSelected : borderColor;
+          e.currentTarget.style.backgroundColor = checked ? bgColorSelected : '';
+        }}
       />
       <Label
         htmlFor={rest.id ?? id}

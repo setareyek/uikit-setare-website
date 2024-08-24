@@ -1,8 +1,8 @@
-import path from 'path';
-import MiniCssExtractPlugin from 'mini-css-extract-plugin';
-import CopyWebpackPlugin from 'copy-webpack-plugin';
-import { CleanWebpackPlugin } from 'clean-webpack-plugin';
-import TsconfigPathsPlugin from 'tsconfig-paths-webpack-plugin';
+const path = require('path');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 
 const commonConfig = {
   entry: './src/index.ts',
@@ -24,7 +24,11 @@ const commonConfig = {
       },
       {
         test: /\.css$/i,
-        use: [MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader'],
+        use: [
+          MiniCssExtractPlugin.loader,
+          'css-loader',
+          'postcss-loader',
+        ],
       },
       {
         test: /\.(png|jpg|gif|svg)$/,
@@ -41,7 +45,9 @@ const commonConfig = {
       filename: 'styles.css',
     }),
     new CopyWebpackPlugin({
-      patterns: [{ from: 'src/assets', to: 'assets' }],
+      patterns: [
+        { from: 'src/assets', to: 'assets' },
+      ],
     }),
   ],
   devtool: 'source-map',
