@@ -1,13 +1,13 @@
 {
   "name": "uikit-setare-website",
-  "version": "0.0.1",
+  "version": "0.0.5",
   "description": "Open source React components styled with Tailwind CSS for streamlined and responsive web development.",
   "license": "ISC",
   "type": "commonjs",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
-  "style": "dist/styles.css",
-  "types": "dist/index.d.ts",
+  "style": "dist/esm/styles.css",
+  "types": "dist/src/index.d.ts",
   "files": [
     "dist"
   ],

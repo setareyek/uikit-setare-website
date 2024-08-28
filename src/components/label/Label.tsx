@@ -4,7 +4,7 @@ import { cva } from 'class-variance-authority';
 import React from 'react';
 
 const labelVariants = cva(
-  'font-medium leading-none transition-colors duration-300 ease-in-out peer-disabled:opacity-70',
+  'flex items-center font-medium leading-none transition-colors duration-300 ease-in-out peer-disabled:opacity-70',
   {
     variants: {
       size: {
@@ -18,6 +18,8 @@ const labelVariants = cva(
 
 export interface LabelVariants {
   size?: 'small' | 'medium' | 'large';
+  color?: string;
+  bgColor?: string;
 }
 
 export interface LabelProps
@@ -25,8 +27,15 @@ export interface LabelProps
     Required<Pick<LabelHTMLAttributes<HTMLLabelElement>, 'htmlFor'>>,
     LabelVariants {}
 
-export function Label({ size = 'medium', className, htmlFor, ...rest }: LabelProps) {
-  return <label className={clsxMerge(labelVariants({ size }), className)} htmlFor={htmlFor} {...rest} />;
+export function Label({ size = 'medium', color = '#000', bgColor = '#FFF', className, htmlFor, ...rest }: LabelProps) {
+  return (
+    <label
+      style={{ color, backgroundColor: bgColor }}
+      className={clsxMerge(labelVariants({ size }), className)}
+      htmlFor={htmlFor}
+      {...rest}
+    />
+  );
 }
 
 Label.displayName = 'Label';

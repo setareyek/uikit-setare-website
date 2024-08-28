@@ -1,6 +1,6 @@
-import type { Config } from 'tailwindcss';
 import tailwindForms from '@tailwindcss/forms';
 import tailwindScrollbar from 'tailwind-scrollbar';
+import type { Config } from 'tailwindcss';
 
 const config: Config = {
   darkMode: 'class',
